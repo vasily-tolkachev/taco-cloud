@@ -1,15 +1,12 @@
 package sia.tacocloud;
 
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-
 import java.util.Date;
 
 import static lombok.AccessLevel.PRIVATE;
