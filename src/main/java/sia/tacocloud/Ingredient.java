@@ -1,17 +1,15 @@
 package sia.tacocloud;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 
-@Value
+@Data
 @RequiredArgsConstructor
 public class Ingredient {
-    String id;
-    String name;
-    Type type;
-
-    public enum Type {
+    private final String id;
+    private final String name;
+    private final Type type;
+    public static enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 }

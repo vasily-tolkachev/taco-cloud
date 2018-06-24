@@ -1,7 +1,6 @@
 package sia.tacocloud.web;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import sia.tacocloud.Taco;
 
 import static sia.tacocloud.Ingredient.Type.*;
 
-
 @Slf4j
 @Controller
 @RequestMapping("/design")
@@ -27,33 +25,39 @@ public class DesignTacoController {
     public String showDesignForm(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
-                new Ingredient("COTO", "Corn Tortilla", WRAP),
-                new Ingredient("GRBF", "Ground Beef", PROTEIN),
-                new Ingredient("CARN", "Carnitas", PROTEIN),
-                new Ingredient("TMTO", "Diced Tomatoes", VEGGIES),
-                new Ingredient("LETC", "Lettuce", VEGGIES),
-                new Ingredient("CHED", "Cheddar", CHEESE),
-                new Ingredient("JACK", "Monterrey Jack", CHEESE),
-                new Ingredient("SLSA", "Salsa", SAUCE),
-                new Ingredient("SRCR", "Sour Cream", SAUCE)
+                new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
+                new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
+                new Ingredient("CARN", "Carnitas", Type.PROTEIN),
+                new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES),
+                new Ingredient("LETC", "Lettuce", Type.VEGGIES),
+                new Ingredient("CHED", "Cheddar", Type.CHEESE),
+                new Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
+                new Ingredient("SLSA", "Salsa", Type.SAUCE),
+                new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
         );
 
-        for (Type type : Type.values()) {
+        Type[] types = Ingredient.Type.values();
+        for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
-                    ingredients.stream()
-                            .filter(i -> i.getType() == type)
-                            .collect(Collectors.toList()));
+                    ingredients.stream().
+                            filter(ingredient -> ingredient.getType().equals(type)).collect(Collectors.toList()));
         }
 
         model.addAttribute("design", new Taco());
+
         return "design";
+
     }
 
     @PostMapping
-    public String processDesign(Design design) {
+    public String processDesign(@Valid Taco design, Errors errors) {
+        if (errors.hasErrors()) {
+            return "design";
+        }
         // Save the taco design...
-        // We'll do this in chapter 3
+        // We'll do this in chapter 3 log.info("Processing design: " + design);
         log.info("Processing design: " + design);
         return "redirect:/orders/current";
     }
+
 }
