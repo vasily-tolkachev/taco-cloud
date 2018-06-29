@@ -42,7 +42,7 @@ Please correct the problems below and resubmit. </span>
           th:if="${#fields.hasErrors('zip')}"
           th:errors="*{zip}">Zip Error</span>
     <br/>
-    <h3>Here's how I'll pay...</h3>
+   <!-- <h3>Here's how I'll pay...</h3>
     <label for="ccNumber">Credit Card #: </label>
     <input type="text" th:field="*{ccNumber}"/>
     <span class="validationError"
@@ -59,7 +59,7 @@ Please correct the problems below and resubmit. </span>
     <span class="validationError"
           th:if="${#fields.hasErrors('ccCVV')}"
           th:errors="*{ccCVV}">ccCVV Error</span>
-    <br/>
+    <br/>-->
     <input type="submit" value="Submit order"/> </form>
 </body>
 </html>
