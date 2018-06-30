@@ -40,10 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/design", "/orders", "/orders/current")
                 .access("hasRole('USER')")
                 .antMatchers("/**").access("permitAll")
+
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/design")
+
+                .and()
+                .logout()
         ;
     }
 
