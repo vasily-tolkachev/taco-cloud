@@ -1,7 +1,6 @@
 package sia.tacocloud;
 
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -9,9 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static javax.persistence.GenerationType.AUTO;
-import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Entity

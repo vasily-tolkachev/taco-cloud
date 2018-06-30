@@ -1,16 +1,12 @@
 package sia.tacocloud;
 
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
-
-import static javax.persistence.GenerationType.AUTO;
-import static lombok.AccessLevel.PRIVATE;
 
 
 @Data
