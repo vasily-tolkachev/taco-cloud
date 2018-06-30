@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import sia.tacocloud.Order;
+import sia.tacocloud.model.Order;
 import sia.tacocloud.data.OrderRepository;
 import org.springframework.web.bind.support.SessionStatus;
 
