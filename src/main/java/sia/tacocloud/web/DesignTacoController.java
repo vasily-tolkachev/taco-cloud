@@ -67,7 +67,8 @@ public class DesignTacoController {
     public String processDesign (
             @Valid Taco design, Errors errors, @ModelAttribute Order order, Model model) {
         if (errors.hasErrors()) {
-            return "design";
+            System.out.println(errors);
+            return "redirect:/design";
         }
 
         Taco newTaco = tacoRepository.save(design);
