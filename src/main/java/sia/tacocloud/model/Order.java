@@ -33,6 +33,9 @@ public class Order implements Serializable {
 
     @NotEmpty(message = "Zip code is required")
     private String zip;
+
+    @ManyToOne
+    private User user;
 /*
     //@CreditCardNumber(message = "Not a valid credit card number")
     @Digits(integer = 16, fraction = 0, message = "Not a valid credit card number")
