@@ -1,14 +1,20 @@
 package sia.tacocloud.web;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sia.tacocloud.data.TacoRepository;
 import sia.tacocloud.model.Taco;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping(path = "/design",
@@ -31,9 +37,34 @@ public class DesignTacoRestController {
     }
 
     @GetMapping("/{id}")
-    public Taco tacoById(@PathVariable("id") Long id) {
+    public ResponseEntity<Taco> tacoById(@PathVariable("id") Long id) {
         Optional<Taco> optionalTaco = tacoRepository.findById(id);
-        return optionalTaco.orElse(null);
+        return optionalTaco.map(taco -> new ResponseEntity<>(taco, OK))
+                .orElseGet(() -> new ResponseEntity<>((Taco) null, NOT_FOUND));
+    }
+
+    @PostMapping(consumes = "application/json")
+    @ResponseStatus(CREATED)
+    public Taco postTaco(@RequestBody Taco taco) {
+        System.out.println(taco);
+        return tacoRepository.save(taco);
+    }
+
+   /* @PutMapping("/{tacoId}")
+    public Taco putTaco(@RequestBody Taco taco) {
+        return tacoRepository.save(taco);
+    }*/
+
+    @DeleteMapping("/{tacoId}")
+    public ResponseEntity<Taco> deleteTaco(@PathVariable("tacoId") long tacoId) {
+        System.out.println("Fetching & Deleting Taco with id " + tacoId);
+        try {
+            tacoRepository.deleteById(tacoId);
+            return new ResponseEntity<Taco>(HttpStatus.NO_CONTENT);
+        } catch (EmptyResultDataAccessException e) {
+            return new ResponseEntity<Taco>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
+
