@@ -3,14 +3,12 @@ package sia.tacocloud.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sia.tacocloud.data.TacoRepository;
 import sia.tacocloud.model.Taco;
 
 import javax.swing.text.html.parser.Entity;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/design",
@@ -32,6 +30,10 @@ public class DesignTacoRestController {
         return tacoRepository.findAll();
     }
 
-
+    @GetMapping("/{id}")
+    public Taco tacoById(@PathVariable("id") Long id) {
+        Optional<Taco> optionalTaco = tacoRepository.findById(id);
+        return optionalTaco.orElse(null);
+    }
 
 }
